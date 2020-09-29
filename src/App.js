@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
+import ModalForm from './Components/Modals/Modal';
+import DataTable from './Components/Tables/DataTable';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+
+      state = {
+        items: []        
+      }
+
+
+      getItems(){
+        // fetch('http://localhost:3000/crud')
+        //   .then(response => response.json())
+        //   .then(items => this.setState({items}))
+        //   .catch(err => console.log(err))
+        let users = [
+              {name: 'Francisco Mauro', email: 'frmauro8@gmail.com', password: '123', status: 'active', userType: 'administrator'},
+              {name: 'João Mauro', email: 'jml@gmail.com', password: '123', status: 'active', userType: 'client'},
+              {name: 'Valeria Mauro', email: 'val@gmail.com', password: '123', status: 'active', userType: 'client'}
+         ];
+
+
+        this.setState({ items: users })
+      }
+
+      addItemToState = (item) => {
+        this.setState(prevState => ({
+          items: [...prevState.items, item]
+        }))
+      }
+
+
+      componentDidMount(){
+        this.getItems()
+      }
+
+      render(){
+        return(
+          <Container className="App">
+            <Row>
+              <Col>
+                <h1 style={{margin: "20px 0"}}>USERS</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>
+              </Col>
+            </Row>
+          </Container>
+        )
+      }
 }
+
 
 export default App;
