@@ -45,9 +45,6 @@ class ModalForm extends Component{
 
 
 
-
-
-
           return(
               <div>
                 {button}

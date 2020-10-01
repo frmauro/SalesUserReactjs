@@ -16,13 +16,14 @@ class App extends Component{
         //   .then(items => this.setState({items}))
         //   .catch(err => console.log(err))
         let users = [
-              {name: 'Francisco Mauro', email: 'frmauro8@gmail.com', password: '123', status: 'active', userType: 'administrator'},
-              {name: 'João Mauro', email: 'jml@gmail.com', password: '123', status: 'active', userType: 'client'},
-              {name: 'Valeria Mauro', email: 'val@gmail.com', password: '123', status: 'active', userType: 'client'}
+              {id: '1', name: 'Francisco Mauro', email: 'frmauro8@gmail.com', password: '123', status: 'active', userType: 'administrator'},
+              {id: '2', name: 'João Mauro', email: 'jml@gmail.com', password: '123', status: 'active', userType: 'client'},
+              {id: '3', name: 'Valeria Mauro', email: 'val@gmail.com', password: '123', status: 'active', userType: 'client'}
          ];
 
 
         this.setState({ items: users })
+        console.log(this.state);
       }
 
       addItemToState = (item) => {
@@ -44,6 +45,11 @@ class App extends Component{
                 <h1 style={{margin: "20px 0"}}>USERS</h1>
               </Col>
             </Row>
+            <Row>
+          <Col>
+            <DataTable items={this.state.items} />
+          </Col>
+        </Row>
             <Row>
               <Col>
                 <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>

@@ -2,23 +2,32 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
-class AddEditForm extends Comment{
-    state = {
-        name: '', 
-        email: '', 
-        password: '', 
-        status: '', 
-        userType: ''
-    }
-
+class AddEditForm extends React.Component {
+  constructor(props){
+    super(props);
+        this.state = {
+          name: '', 
+          email: '', 
+          password: '', 
+          status: '', 
+          userType: ''
+      }
+  }
+  
+     
     onChange = e => {
         this.setState({[e.target.name]: e.target.value})
+      }
+
+      onClickOption = e => {
+        this.setState({[e.target.name]: e.target.value});
       }
 
 
 
     submitFormAdd = e => {
         e.preventDefault()
+        //console.log(this.state);
         // fetch('http://localhost:3000/crud', {
         //   method: 'post',
         //   headers: {
@@ -53,7 +62,7 @@ class AddEditForm extends Comment{
           const { name, email, password, status, userType } = this.props.item
           this.setState({ name, email, password, status, userType })
         }
-      }
+      };
 
 
       render(){
@@ -72,6 +81,24 @@ class AddEditForm extends Comment{
                 <Label for="password">Password</Label>
                 <Input type="password" name="password" id="password" onChange={this.onChange} value={this.state.password === null ? '' : this.state.password}  />
                 </FormGroup>
+
+
+                <FormGroup>
+                  <Label for="status">Status</Label>
+                   <select onChange={this.onClickOption} class="browser-default custom-select" name="status" id="status">
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                   </select>
+                </FormGroup>
+
+                <FormGroup>
+                  <Label for="userType">User Type</Label>
+                   <select onChange={this.onClickOption} class="browser-default custom-select" name="userType" id="userType">
+                      <option value="Administrator">Administrator</option>
+                      <option value="Client">Client</option>
+                   </select>
+                </FormGroup>
+
                 <Button>Save</Button>
             </Form>
 
