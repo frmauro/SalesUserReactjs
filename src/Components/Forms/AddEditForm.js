@@ -26,7 +26,7 @@ class AddEditForm extends React.Component {
 
 
     submitFormAdd = e => {
-        e.preventDefault()
+        e.preventDefault();
         //console.log(this.state);
         // fetch('http://localhost:3000/crud', {
         //   method: 'post',
@@ -56,6 +56,42 @@ class AddEditForm extends React.Component {
 
 
 
+
+      submitFormEdit = e => {
+        e.preventDefault();
+        //console.log(this.state);
+        // fetch('http://localhost:3000/crud', {
+        //   method: 'put',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify({
+        //     id: this.state.id,
+        //     name: this.state.name,
+        //     email: this.state.email,
+        //     password: this.state.password,
+        //     status: this.state.status,
+        //     userType: this.state.userType
+        //   })
+        // })
+        //   .then(response => response.json())
+        //   .then(item => {
+        //     if(Array.isArray(item)) {
+        //       // console.log(item[0])
+        //       this.props.updateState(item[0])
+        //       this.props.toggle()
+        //     } else {
+        //       console.log('failure')
+        //     }
+        //   })
+        //   .catch(err => console.log(err))
+      }
+
+
+
+
+
+
       componentDidMount(){
         // if item exists, populate the state with proper data
         if(this.props.item){
@@ -68,7 +104,7 @@ class AddEditForm extends React.Component {
       render(){
           return(
 
-            <Form onSubmit={this.submitFormAdd}>
+            <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
                 <FormGroup>
                 <Label for="name">Name</Label>
                 <Input type="text" name="name" id="name" onChange={this.onChange} value={this.state.name === null ? '' : this.state.name} />

@@ -23,7 +23,7 @@ class App extends Component{
 
 
         this.setState({ items: users })
-        console.log(this.state);
+        //console.log(this.state);
       }
 
       addItemToState = (item) => {
