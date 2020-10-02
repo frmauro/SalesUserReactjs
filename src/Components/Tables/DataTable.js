@@ -10,8 +10,8 @@ class DataTable extends Component{
 
         const items = this.props.items.map(item => {
           return (
-            <tr key={item.id}>
-              <th scope="row">{item.id}</th>
+            <tr key={item._id}>
+              <th scope="row">{item._id}</th>
               <td>{item.name}</td>
               <td>{item.email}</td>
               <td>{item.password}</td>

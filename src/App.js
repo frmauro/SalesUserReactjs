@@ -11,18 +11,18 @@ class App extends Component{
 
 
       getItems(){
-        // fetch('http://localhost:3000/crud')
-        //   .then(response => response.json())
-        //   .then(items => this.setState({items}))
-        //   .catch(err => console.log(err))
-        let users = [
-              {id: '1', name: 'Francisco Mauro', email: 'frmauro8@gmail.com', password: '123', status: 'active', userType: 'administrator'},
-              {id: '2', name: 'João Mauro', email: 'jml@gmail.com', password: '123', status: 'active', userType: 'client'},
-              {id: '3', name: 'Valeria Mauro', email: 'val@gmail.com', password: '123', status: 'active', userType: 'client'}
-         ];
+        fetch('http://localhost:8088')
+          .then(response => response.json())
+          .then(items => this.setState({items}))
+          .catch(err => console.log(err))
+        // let users = [
+        //       {id: '1', name: 'Francisco Mauro', email: 'frmauro8@gmail.com', password: '123', status: 'active', userType: 'administrator'},
+        //       {id: '2', name: 'João Mauro', email: 'jml@gmail.com', password: '123', status: 'active', userType: 'client'},
+        //       {id: '3', name: 'Valeria Mauro', email: 'val@gmail.com', password: '123', status: 'active', userType: 'client'}
+        //  ];
 
 
-        this.setState({ items: users })
+        // this.setState({ items: users })
         //console.log(this.state);
       }
 
