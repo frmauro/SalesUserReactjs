@@ -85,10 +85,10 @@ class AddEditForm extends React.Component {
           status: this.state.status,
           userType: this.state.userType
         })
-        console.log(vm);
+        //console.log(vm);
 
         const requestOptions = {
-          method: 'POST',
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: vm
       };
