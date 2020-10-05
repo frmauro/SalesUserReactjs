@@ -1,17 +1,26 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import BoxMsg from './BoxMsg';
 
 
 class AddEditForm extends React.Component {
-  constructor(props){
+
+   constructor(props){
     super(props);
         this.state = {
+          _id: '',
           name: '', 
           email: '', 
           password: '', 
           status: '', 
-          userType: ''
-      }
+          userType: '',
+          shouldHideSuccess: false,
+          shouldHideDanger: false,
+          message: ''
+      };
+
+      this.onClickOption = this.onClickOption.bind(this);
+      this.onChange = this.onChange.bind(this);
   }
   
      
@@ -24,34 +33,41 @@ class AddEditForm extends React.Component {
       }
 
 
-
     submitFormAdd = e => {
         e.preventDefault();
-        //console.log(this.state);
-        // fetch('http://localhost:3000/crud', {
-        //   method: 'post',
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({
-        //     first: this.state.first,
-        //     last: this.state.last,
-        //     email: this.state.email,
-        //     phone: this.state.phone,
-        //     location: this.state.location,
-        //     hobby: this.state.hobby
-        //   })
-        // })
-        //   .then(response => response.json())
-        //   .then(item => {
-        //     if(Array.isArray(item)) {
-        //       this.props.addItemToState(item[0])
-        //       this.props.toggle()
-        //     } else {
-        //       console.log('failure')
-        //     }
-        //   })
-        //   .catch(err => console.log(err))
+        //console.log('submitFormAdd');
+
+        const vm = JSON.stringify({
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password,
+          status: this.state.status,
+          userType: this.state.userType
+        })
+        //console.log(vm);
+
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: vm
+      };
+
+
+        fetch('http://localhost:8088', requestOptions)
+          .then(response => response.json())
+          .then(item => {
+            if(Array.isArray(item)) {
+              this.setState({message: 'operation completed with success'});
+              this.setState({shouldHideSuccess: true});
+              this.setState({shouldHideDanger: false});
+              //this.props.toggle()
+            } else if (item === 'user exists'){
+              this.setState({message: 'user exists'});
+              this.setState({shouldHideSuccess: false});
+              this.setState({shouldHideDanger: true});
+            }
+          })
+          .catch(err => console.log(err))
       }      
 
 
@@ -59,44 +75,42 @@ class AddEditForm extends React.Component {
 
       submitFormEdit = e => {
         e.preventDefault();
-        //console.log(this.state);
-        // fetch('http://localhost:3000/crud', {
-        //   method: 'put',
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({
-        //     id: this.state.id,
-        //     name: this.state.name,
-        //     email: this.state.email,
-        //     password: this.state.password,
-        //     status: this.state.status,
-        //     userType: this.state.userType
-        //   })
-        // })
-        //   .then(response => response.json())
-        //   .then(item => {
-        //     if(Array.isArray(item)) {
-        //       // console.log(item[0])
-        //       this.props.updateState(item[0])
-        //       this.props.toggle()
-        //     } else {
-        //       console.log('failure')
-        //     }
-        //   })
-        //   .catch(err => console.log(err))
+        //console.log('submitFormEdit');
+
+        const vm = JSON.stringify({
+          _id: this.state._id,
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password,
+          status: this.state.status,
+          userType: this.state.userType
+        })
+        console.log(vm);
+
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: vm
+      };
+
+        fetch('http://localhost:8088', requestOptions)
+          .then(response => response.json())
+          .then(item => {
+              this.setState({message: 'operation completed with success'});
+              this.setState({shouldHideSuccess: true});
+              this.setState({shouldHideDanger: false});
+              //this.props.toggle()
+          })
+          .catch(err => console.log(err))
+
       }
-
-
-
-
 
 
       componentDidMount(){
         // if item exists, populate the state with proper data
         if(this.props.item){
-          const { name, email, password, status, userType } = this.props.item
-          this.setState({ name, email, password, status, userType })
+          const { _id, name, email, password, status, userType } = this.props.item
+          this.setState({ _id, name, email, password, status, userType })
         }
       };
 
@@ -121,20 +135,24 @@ class AddEditForm extends React.Component {
 
                 <FormGroup>
                   <Label for="status">Status</Label>
-                   <select onChange={this.onClickOption} class="browser-default custom-select" name="status" id="status">
-                      <option value="Active">Active</option>
+                   <select value={this.state.status} onChange={this.onClickOption} class="browser-default custom-select" name="status" id="status">
+                      <option selected value="Active">Active</option>
                       <option value="Inactive">Inactive</option>
                    </select>
                 </FormGroup>
 
                 <FormGroup>
                   <Label for="userType">User Type</Label>
-                   <select onChange={this.onClickOption} class="browser-default custom-select" name="userType" id="userType">
-                      <option value="Administrator">Administrator</option>
+                   <select value={this.state.userType} onChange={this.onClickOption} class="browser-default custom-select" name="userType" id="userType">
+                      <option selected value="Administrator">Administrator</option>
                       <option value="Client">Client</option>
                    </select>
                 </FormGroup>
 
+                <BoxMsg message={this.state.message} 
+                  isSuccessOpened={this.state.shouldHideSuccess} 
+                  isDangerOpened={this.state.shouldHideDanger} 
+                ></BoxMsg>
                 <Button>Save</Button>
             </Form>
 
