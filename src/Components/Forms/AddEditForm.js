@@ -1,9 +1,13 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BoxMsg from './BoxMsg';
+import Dropdown from './Dropdown';
 
 
 class AddEditForm extends React.Component {
+
+  itemsUserTypes = ["Administrator", "Client"];
+  itemsStatus = ["Active", "Inactive"];
 
    constructor(props){
     super(props);
@@ -131,22 +135,13 @@ class AddEditForm extends React.Component {
                 <Label for="password">Password</Label>
                 <Input type="password" name="password" id="password" onChange={this.onChange} value={this.state.password === null ? '' : this.state.password}  />
                 </FormGroup>
-
-
+                
                 <FormGroup>
-                  <Label for="status">Status</Label>
-                   <select value={this.state.status} onChange={this.onClickOption} class="browser-default custom-select" name="status" id="status">
-                      <option selected value="Active">Active</option>
-                      <option value="Inactive">Inactive</option>
-                   </select>
+                  <Dropdown  property={this.state.status} eventHandler={this.onClickOption} name={"status"} id={"status"} items={this.itemsStatus} ></Dropdown>
                 </FormGroup>
 
                 <FormGroup>
-                  <Label for="userType">User Type</Label>
-                   <select value={this.state.userType} onChange={this.onClickOption} class="browser-default custom-select" name="userType" id="userType">
-                      <option selected value="Administrator">Administrator</option>
-                      <option value="Client">Client</option>
-                   </select>
+                  <Dropdown  property={this.state.userType} eventHandler={this.onClickOption} name={"userType"} id={"userType"} items={this.itemsUserTypes} ></Dropdown>
                 </FormGroup>
 
                 <BoxMsg message={this.state.message} 
