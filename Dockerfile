@@ -1,6 +1,6 @@
 # Imagem de Origem
 # pull official base image
-FROM node:13.12.0-alpine
+FROM node:13.12.0-alpine as build
 
 # set working directory
 WORKDIR /app
@@ -16,6 +16,13 @@ RUN npm install react-scripts@3.4.3 -g
 
 # add app
 COPY . ./
+RUN npm run build
 
 # start app
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
+
+# production environment
+FROM nginx:1.16.0-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# CMD [“nginx”, “-g”, “daemon off;”]
