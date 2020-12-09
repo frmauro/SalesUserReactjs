@@ -16,8 +16,8 @@ class AddEditForm extends React.Component {
           name: '', 
           email: '', 
           password: '', 
-          status: '', 
-          userType: '',
+          status: 'Active', 
+          userType: 'Administrator',
           shouldHideSuccess: false,
           shouldHideDanger: false,
           message: ''
@@ -33,6 +33,8 @@ class AddEditForm extends React.Component {
       }
 
       onClickOption = e => {
+        //console.log(e.target.name);
+        //console.log(e.target.value);
         this.setState({[e.target.name]: e.target.value});
       }
 
@@ -51,28 +53,27 @@ class AddEditForm extends React.Component {
         //console.log(vm);
 
         const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: vm
-      };
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: vm
+        };
 
-
-        fetch('http://localhost:8088', requestOptions)
-          .then(response => response.json())
-          .then(item => {
-            if(Array.isArray(item)) {
-              this.setState({message: 'operation completed with success'});
-              this.setState({shouldHideSuccess: true});
-              this.setState({shouldHideDanger: false});
-              //this.props.toggle()
-            } else if (item === 'user exists'){
-              this.setState({message: 'user exists'});
-              this.setState({shouldHideSuccess: false});
-              this.setState({shouldHideDanger: true});
-            }
-          })
-          .catch(err => console.log(err))
-      }      
+          fetch('http://localhost:8088', requestOptions)
+            .then(response => response.json())
+            .then(item => {
+              if(Array.isArray(item)) {
+                //this.setState({message: 'operation completed with success'});
+                //this.setState({shouldHideSuccess: true});
+                //this.setState({shouldHideDanger: false});
+                this.props.toggle(true);
+              } else if (item === 'user exists'){
+                this.setState({message: 'user exists'});
+                this.setState({shouldHideSuccess: false});
+                this.setState({shouldHideDanger: true});
+              }
+            })
+            .catch(err => console.log(err))
+       }      
 
 
 
@@ -97,13 +98,15 @@ class AddEditForm extends React.Component {
           body: vm
       };
 
+      //this.props.toggle();
+
         fetch('http://localhost:8088', requestOptions)
           .then(response => response.json())
           .then(item => {
               this.setState({message: 'operation completed with success'});
               this.setState({shouldHideSuccess: true});
               this.setState({shouldHideDanger: false});
-              //this.props.toggle()
+              //this.props.toggle();
           })
           .catch(err => console.log(err))
 

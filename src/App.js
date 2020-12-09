@@ -23,6 +23,9 @@ class App extends Component{
         }))
       }
 
+      gridUserUpdate(){
+        window.location.reload()
+      }
 
       componentDidMount(){
         this.getItems()
@@ -43,7 +46,7 @@ class App extends Component{
         </Row>
             <Row>
               <Col>
-                <ModalForm buttonLabel="Add Item" addItemToState={this.addItemToState}/>
+                <ModalForm buttonLabel="Add Item" gridUserUpdate={this.gridUserUpdate} addItemToState={this.addItemToState}/>
               </Col>
             </Row>
           </Container>

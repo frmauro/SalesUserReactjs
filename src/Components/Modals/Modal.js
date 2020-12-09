@@ -12,7 +12,12 @@ class ModalForm extends Component{
     }
 
 
-    toggle = () => {
+    toggle = (gridUserUpdate) => {
+
+      if (gridUserUpdate === true){
+          this.props.gridUserUpdate();
+        }
+
         this.setState(prevState => ({
           modal: !prevState.modal
         }))
@@ -49,7 +54,7 @@ class ModalForm extends Component{
               <div>
                 {button}
 
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} >
                     <ModalHeader toggle={this.toggle} close={closeBtn}>{title}</ModalHeader>
                     <ModalBody>
                         <AddEditForm
