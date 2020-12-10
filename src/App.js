@@ -3,18 +3,18 @@ import { Container, Row, Col } from 'reactstrap';
 import ModalForm from './Components/Modals/Modal';
 import DataTable from './Components/Tables/DataTable';
 
+import  UserService  from "./userService";
+
 class App extends Component{
 
       state = {
         items: []        
       }
 
-
       getItems(){
-        fetch('http://localhost:8088')
-          .then(response => response.json())
-          .then(items => this.setState({items}))
-          .catch(err => console.log(err))
+         let arrItems = UserService.getAPIServiceInstance().getUsers();
+         this.setState({arrItems});
+         console.log(arrItems);
       }
 
       addItemToState = (item) => {
