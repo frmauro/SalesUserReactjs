@@ -103,9 +103,6 @@ class AddEditForm extends React.Component {
         fetch('http://localhost:8088', requestOptions)
           .then(response => response.json())
           .then(item => {
-              //this.setState({message: 'operation completed with success'});
-              //this.setState({shouldHideSuccess: true});
-              //this.setState({shouldHideDanger: false});
               this.props.toggle(true);
           })
           .catch(err => console.log(err))
