@@ -14,8 +14,8 @@ class App extends Component{
       getItems(){
          UserService.getAPIServiceInstance()
          .getUsers()
-         .then(response =>  { 
-             this.setState({response}) 
+         .then(items =>  { 
+             this.setState({items}) 
           });
       }
 
