@@ -12,9 +12,11 @@ class App extends Component{
       }
 
       getItems(){
-         let arrItems = UserService.getAPIServiceInstance().getUsers();
-         this.setState({arrItems});
-         console.log(arrItems);
+         UserService.getAPIServiceInstance()
+         .getUsers()
+         .then(response =>  { 
+             this.setState({response}) 
+          });
       }
 
       addItemToState = (item) => {

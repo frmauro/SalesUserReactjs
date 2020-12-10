@@ -12,13 +12,13 @@ class UserService {
 
 
     getUsers(){
-        let arrItems = [];
+        let arrUsers = [];
 
-        fetch(urlApi)
+        return fetch(urlApi)
         .then(response =>  response.json())
         .then(items =>  {
-                arrItems = items;
-                return arrItems; 
+             arrUsers = items;
+             return arrUsers; 
             })
         .catch(err => console.log(err))
     }
