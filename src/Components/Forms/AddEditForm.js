@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import BoxMsg from './BoxMsg';
 import Dropdown from './Dropdown';
 
+import  UserService  from "../../userService";
 
 class AddEditForm extends React.Component {
 
@@ -32,7 +33,7 @@ class AddEditForm extends React.Component {
         this.setState({[e.target.name]: e.target.value})
       }
 
-      onClickOption = e => {
+    onClickOption = e => {
         //console.log(e.target.name);
         //console.log(e.target.value);
         this.setState({[e.target.name]: e.target.value});
@@ -41,41 +42,28 @@ class AddEditForm extends React.Component {
 
     submitFormAdd = e => {
         e.preventDefault();
-        //console.log('submitFormAdd');
 
-        const vm = JSON.stringify({
-          name: this.state.name,
-          email: this.state.email,
-          password: this.state.password,
-          status: this.state.status,
-          userType: this.state.userType
-        })
-        //console.log(vm);
-
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: vm
-        };
-
-          fetch('http://localhost:8088', requestOptions)
-            .then(response => response.json())
-            .then(item => {
-              if(Array.isArray(item)) {
-                //this.setState({message: 'operation completed with success'});
-                //this.setState({shouldHideSuccess: true});
-                //this.setState({shouldHideDanger: false});
-                this.props.toggle(true);
-              } else if (item === 'user exists'){
-                this.setState({message: 'user exists'});
-                this.setState({shouldHideSuccess: false});
-                this.setState({shouldHideDanger: true});
-              }
+            const vm = JSON.stringify({
+              name: this.state.name,
+              email: this.state.email,
+              password: this.state.password,
+              status: this.state.status,
+              userType: this.state.userType
             })
-            .catch(err => console.log(err))
+            //console.log(vm);
+
+            UserService.getUserServiceInstance().insertUser(vm)
+            .then(item =>  { 
+                if(Array.isArray(item)) {
+                  this.props.toggle(true);
+                } else if (item === 'user exists'){
+                  this.setState({message: 'user exists'});
+                  this.setState({shouldHideSuccess: false});
+                  this.setState({shouldHideDanger: true});
+                }
+          });
+
        }      
-
-
 
 
       submitFormEdit = e => {
@@ -91,21 +79,11 @@ class AddEditForm extends React.Component {
           userType: this.state.userType
         })
         //console.log(vm);
-
-        const requestOptions = {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: vm
-      };
-
-      //this.props.toggle();
-
-        fetch('http://localhost:8088', requestOptions)
-          .then(response => response.json())
+        UserService.getUserServiceInstance()
+          .updateUser(vm)
           .then(item => {
-              this.props.toggle(true);
-          })
-          .catch(err => console.log(err))
+              this.props.toggle(true); 
+            });
 
       }
 

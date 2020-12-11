@@ -19,7 +19,7 @@ class DataTable extends Component{
               <td>{item.userType}</td>
               <td>
                 <div style={{width:"110px"}}>
-                    <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
+                    <ModalForm buttonLabel="Edit" item={item} gridUserUpdate={this.props.gridUserUpdate} updateState={this.props.updateState}/>
                 </div>
               </td>              
             </tr>

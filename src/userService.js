@@ -3,7 +3,7 @@ const urlApi = "http://localhost:8088";
 class UserService {
 
     static classInstance = null;
-    static getAPIServiceInstance() {
+    static getUserServiceInstance() {
         if (UserService.classInstance === null) {
             UserService.classInstance = new UserService();
         }
@@ -21,6 +21,35 @@ class UserService {
              return arrUsers; 
             })
         .catch(err => console.log(err))
+    }
+
+
+    insertUser(vm){
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: vm
+        };
+
+        return fetch(urlApi, requestOptions)
+        .then(response => response.json())
+        .then(item => { return item })
+        .catch(err => console.log(err))
+    }
+
+    updateUser(vm){
+
+          const requestOptions = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: vm
+          };
+  
+         return fetch(urlApi, requestOptions)
+            .then(response => response.json())
+            .then(item => { return item; })
+            .catch(err => console.log(err))
     }
 }
 

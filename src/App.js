@@ -12,7 +12,7 @@ class App extends Component{
       }
 
       getItems(){
-         UserService.getAPIServiceInstance()
+         UserService.getUserServiceInstance()
          .getUsers()
          .then(items =>  { 
              this.setState({items}) 
@@ -43,7 +43,7 @@ class App extends Component{
             </Row>
             <Row>
           <Col>
-            <DataTable items={this.state.items} />
+            <DataTable items={this.state.items} gridUserUpdate={this.gridUserUpdate} />
           </Col>
         </Row>
             <Row>
