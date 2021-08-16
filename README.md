@@ -1,3 +1,6 @@
+## create image
+docker build --tag salesuserreact .
+
 Docker run command:  docker run -it --name salesuserreact -p 3000:3000 --link salesusernode salesuserreact
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

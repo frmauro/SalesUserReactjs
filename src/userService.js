@@ -1,4 +1,5 @@
-const urlApi = "http://localhost:8088";
+//const urlApi = "http://localhost:8088";
+const urlApi = "http://salesapiuser:31000"
 
 class UserService {
 
