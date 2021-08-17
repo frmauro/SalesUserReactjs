@@ -1,5 +1,7 @@
 //const urlApi = "http://localhost:8088";
-const urlApi = "http://salesapiuser:31000"
+
+//pod(service) kubernates(minikube)
+const urlApi = "http://192.168.49.2:31000"
 
 class UserService {
 
