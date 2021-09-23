@@ -1,7 +1,9 @@
 //const urlApi = "http://localhost:8088";
 
 //pod(service) kubernates(minikube)
-const urlApi = "http://192.168.49.2:31000"
+const urlApiPut = "http://localhost/user";
+const urlApiCreate = "http://localhost/create";
+const urlApi = "http://localhost/users";
 
 class UserService {
 
@@ -35,7 +37,7 @@ class UserService {
             body: vm
         };
 
-        return fetch(urlApi, requestOptions)
+        return fetch(urlApiCreate, requestOptions)
         .then(response => response.json())
         .then(item => { return item })
         .catch(err => console.log(err))
@@ -49,7 +51,7 @@ class UserService {
                 body: vm
           };
   
-         return fetch(urlApi, requestOptions)
+         return fetch(urlApiPut, requestOptions)
             .then(response => response.json())
             .then(item => { return item; })
             .catch(err => console.log(err))
